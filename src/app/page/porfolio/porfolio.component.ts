@@ -12,4 +12,11 @@ export class PorfolioComponent implements OnInit {
   ngOnInit() {
   }
 
+  showWebProjects(){alert("web");}
+  showAppProjects(){alert("app");}
+  showDataScienceProjects(){alert("data science");}
+  showGameProjects(){alert("game");}
+  show3DProjects(){alert("3D");}
+  showMakerProjects(){alert("Maker");}
+
 }

@@ -11,11 +11,13 @@ import { environment } from 'src/environments/environment';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PorfolioComponent } from './page/porfolio/porfolio.component';
+import { InputLoginComponent } from './components/input-login/input-login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PorfolioComponent
+    PorfolioComponent,
+    InputLoginComponent
   ],
   imports: [
     BrowserModule,
