@@ -1,0 +1,25 @@
+- Nuevo proyecto
+ng new NOMBRE-PROYECTO
+
+- Install librerias de firebas y bootstrap
+npm install firebase @angular/fire font-awesome bootstrap @ng-bootstrap/ng-bootstrap --save
+
+- Para usar firebase usamos estos import
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+
+- Las credenciales del proyecto de firebase estan en el environment.ts
+import { environment } from 'src/environments/environment';
+
+- Usar los componentes bootstraps adaptados a angular
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+- Usar paquete de formulario
+import { ReactiveFormsModule } from '@angular/forms';
+
+- Terminar la configuracion del css de bootstrap, en el archivo "angular.json" agregar en la seccion "style"
+"node_modules/bootstrap/dist/css/bootstrap.min.css"
+
+
+
+
