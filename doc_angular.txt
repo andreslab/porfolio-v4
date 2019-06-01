@@ -30,6 +30,13 @@ ng generate interface components/contact-form/models/contact
 - crear servicios
 ng generate service components/contact-form/services/contact
 
+- ngClass: permite asignar una clase a una etiqueta según una condición determinada
+<td [ngClass]="{'done': contact.done, 'not-done': !contact.done}">{{contact.title}}</td>
+si la condicion es verdadera se le asigna la clase "done", si es falsa "not-done"
+
+-pipe para transformar el formato de la fecha "| date"
+<td>{{contact.lastModifiedDate | date}}</td>
+
 
 
 

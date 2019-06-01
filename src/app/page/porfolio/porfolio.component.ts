@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ContactFormComponent } from 'src/app/components/contact-form/contact-form.component';
 import { InputLoginComponent } from 'src/app/components/input-login/input-login.component';
+import { ContactService } from 'src/app/components/contact-form/services/contact.service';
+import { ContactViewModel } from 'src/app/components/contact-form/models/contact-view-model';
 
 @Component({
   selector: 'app-porfolio',
@@ -10,9 +12,30 @@ import { InputLoginComponent } from 'src/app/components/input-login/input-login.
 })
 export class PorfolioComponent implements OnInit {
 
-  constructor(private modalService: NgbModal) { }
+  constructor(private modalService: NgbModal,
+    private contactService: ContactService) { }
 
   ngOnInit() {
+    this.loadContact();
+  }
+
+  contact: ContactViewModel[] = [];
+  loadContact(){
+    this.contactService.getContacts().subscribe(response => {
+      this.contact = [];
+      response.docs.forEach(value => {
+        const data = value.data();
+        const id = value.id;
+        const contact: ContactViewModel = {
+          id: id,
+          title: data.title,
+          description: data.description,
+          done: data.done,
+          lastModifiedDate: data.lastModifiedDate.toDate()
+        };
+        this.contact.push(contact);
+      })
+    });
   }
 
   showWebProjects(){
@@ -31,6 +54,14 @@ export class PorfolioComponent implements OnInit {
 
   handleModalInputLoginClose(){
     //alert("se ha cerrado el modal");
+  }
+
+  checkedDone(index: number){
+    const newDoneValue = !this.contact[index].done
+    this.contact[index].done = newDoneValue;
+    const obj = {done: newDoneValue};
+    const id = this.contact[index].id;
+    this.contactService.editContactPartial(id, obj);
   }
 }
 
