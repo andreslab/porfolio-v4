@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Contact } from './models/contact';
+import { DocumentReference } from '@angular/fire/firestore';
+import { ContactService } from './services/contact.service';
 
 @Component({
   selector: 'app-contact-form',
@@ -11,7 +14,8 @@ export class ContactFormComponent implements OnInit {
 
   contactForm: FormGroup;
   constructor(private formBuilder: FormBuilder,
-    public activeModal: NgbActiveModal) { }
+    public activeModal: NgbActiveModal,
+    private contactService: ContactService) { }
 
     //public activeModal: NgbActiveModal es requerido porque el boton "X" del formulario lo usa
 
@@ -24,5 +28,28 @@ export class ContactFormComponent implements OnInit {
     });
     //done es un checkbox por defecto no esta seleccioando
   }
+
+  saveContact(){
+    alert("guardando");
+
+    //validar el formulario
+    if(this.contactForm.invalid){
+      return;
+    }
+    alert("procesando...");
+
+    let contact: Contact = this.contactForm.value;
+    contact.lastModifiedDate = new Date();
+    contact.createDate = new Date();
+    this.contactService.saveContact(contact)
+    .then(response => this.handleSuccessfulSaveContact(response, contact))
+    .catch(err => console.error(err));
+  }
+
+  //enviar la informacion hacia firebase
+  handleSuccessfulSaveContact(response: DocumentReference, contact: Contact){
+    this.activeModal.dismiss({contact: contact, id: response.id});
+  }
+
 
 }

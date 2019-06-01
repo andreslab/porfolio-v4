@@ -24,7 +24,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 - Cuando se crea un componente con modal hay que declararlo en el app.module.ts principal con el "entryComponents"
 
+- crear una interfaz
+ng generate interface components/contact-form/models/contact
 
+- crear servicios
+ng generate service components/contact-form/services/contact
 
 
 

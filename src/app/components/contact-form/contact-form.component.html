@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title">{{createMode ? 'Create Todo' : 'Edit Todo'}}</h4>
+  <h4 class="modal-title">{{createMode ? 'Create Contact' : 'Edit Contact'}}</h4>
   <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -28,5 +28,5 @@
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
-  <button class="btn btn-primary" (click)="saveTodo()" [disabled]="contactForm.invalid">Save</button>
+  <button class="btn btn-primary" (click)="saveContact()" [disabled]="contactForm.invalid">Save</button>
 </div>

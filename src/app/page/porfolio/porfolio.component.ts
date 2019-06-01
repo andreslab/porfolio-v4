@@ -30,7 +30,7 @@ export class PorfolioComponent implements OnInit {
   showMakerProjects(){alert("Maker");}
 
   handleModalInputLoginClose(){
-    alert("se ha cerrado el modal");
+    //alert("se ha cerrado el modal");
   }
 }
 
