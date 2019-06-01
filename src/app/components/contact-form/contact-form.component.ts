@@ -4,6 +4,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Contact } from './models/contact';
 import { DocumentReference } from '@angular/fire/firestore';
 import { ContactService } from './services/contact.service';
+import { ContactViewModel } from './models/contact-view-model';
 
 @Component({
   selector: 'app-contact-form',
@@ -11,8 +12,12 @@ import { ContactService } from './services/contact.service';
   styleUrls: ['./contact-form.component.css']
 })
 export class ContactFormComponent implements OnInit {
+  
 
   contactForm: FormGroup;
+  createMode: boolean = true; // diferenciar si esta creando o editando
+  contact: ContactViewModel;
+
   constructor(private formBuilder: FormBuilder,
     public activeModal: NgbActiveModal,
     private contactService: ContactService) { }
@@ -27,28 +32,47 @@ export class ContactFormComponent implements OnInit {
       done: false
     });
     //done es un checkbox por defecto no esta seleccioando
+
+    //si esta en modo de edicion
+    if(!this.createMode){
+      this.loadContact(this.contact);
+    }
   }
 
-  saveContact(){
-    alert("guardando");
+  loadContact(contact){
 
-    //validar el formulario
-    if(this.contactForm.invalid){
+    //podemos modificar los valores de un formulario con los valores que se le pasan
+    this.contactForm.patchValue(contact);
+  }
+
+  saveTodo() {
+    if (this.contactForm.invalid) {
       return;
     }
-    alert("procesando...");
 
-    let contact: Contact = this.contactForm.value;
-    contact.lastModifiedDate = new Date();
-    contact.createDate = new Date();
-    this.contactService.saveContact(contact)
-    .then(response => this.handleSuccessfulSaveContact(response, contact))
-    .catch(err => console.error(err));
+    if (this.createMode){
+      let contact: Contact = this.contactForm.value;
+      contact.lastModifiedDate = new Date();
+      contact.createDate = new Date();
+      this.contactService.saveContact(contact)
+      .then(response => this.handleSuccessfulSaveContact(response, contact))
+      .catch(err => console.error(err));
+    } else{
+      let contact: ContactViewModel = this.contactForm.value;
+      contact.id = this.contact.id;
+      contact.lastModifiedDate = new Date();
+      this.contactService.editContact(contact)
+        .then(() => this.handleSuccessfulEditContact(contact))
+        .catch(err => console.error(err));
+    }
+
+  }
+  handleSuccessfulSaveContact(response: DocumentReference, contact: Contact) {
+    this.activeModal.dismiss({ contact: contact, id: response.id, createMode: true });
   }
 
-  //enviar la informacion hacia firebase
-  handleSuccessfulSaveContact(response: DocumentReference, contact: Contact){
-    this.activeModal.dismiss({contact: contact, id: response.id});
+  handleSuccessfulEditContact(contact: ContactViewModel) {
+    this.activeModal.dismiss({ contact: contact, id: contact.id, createMode: false });
   }
 
 

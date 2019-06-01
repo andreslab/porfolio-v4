@@ -52,8 +52,21 @@ export class PorfolioComponent implements OnInit {
   show3DProjects(){alert("3D");}
   showMakerProjects(){alert("Maker");}
 
-  handleModalInputLoginClose(){
+  handleModalInputLoginClose(response){
     //alert("se ha cerrado el modal");
+
+    // is response an object?
+    if (response === Object(response)) {
+      if (response.createMode) {
+        //si esta creando un nuevo contact
+        response.todo.id = response.id;
+        this.contact.unshift(response.todo);
+      } else {
+        //si esta editando un contact
+        let index = this.contact.findIndex(value => value.id == response.id);
+        this.contact[index] = response.todo;
+      }
+    }
   }
 
   checkedDone(index: number){
@@ -62,6 +75,28 @@ export class PorfolioComponent implements OnInit {
     const obj = {done: newDoneValue};
     const id = this.contact[index].id;
     this.contactService.editContactPartial(id, obj);
+  }
+
+  handleEditClick(contact: ContactViewModel){
+    //abrimos el modal
+    const modal = this.modalService.open(ContactFormComponent);
+
+    modal.result.then(
+      this.handleModalInputLoginClose.bind(this),
+      this.handleModalInputLoginClose.bind(this)
+    )
+
+    modal.componentInstance.createMode = false;
+    modal.componentInstance.contact = contact;
+  }
+
+  handleDeleteClick(contactId: string, index: number) {
+    this.contactService.deleteContact(contactId)
+    .then(() => {
+      //elimina en el arreglo de contact
+      this.contact.splice(index, 1)
+    })
+    .catch(err => console.error(err));
   }
 }
 
