@@ -13,13 +13,17 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { PorfolioComponent } from './page/porfolio/porfolio.component';
 import { InputLoginComponent } from './components/input-login/input-login.component';
 import { ContactFormComponent } from './components/contact-form/contact-form.component';
+import { MenuComponent } from './menu/menu.component';
+import { ContactComponent } from './page/contact/contact.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PorfolioComponent,
     InputLoginComponent,
-    ContactFormComponent
+    ContactFormComponent,
+    MenuComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,

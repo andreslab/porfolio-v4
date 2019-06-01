@@ -37,7 +37,9 @@ si la condicion es verdadera se le asigna la clase "done", si es falsa "not-done
 -pipe para transformar el formato de la fecha "| date"
 <td>{{contact.lastModifiedDate | date}}</td>
 
-
+- generar un modulo para ruteo o redireccionamiento
+ng generate module routing  
+<router-outlet></router-outlet> es la etiqueta que va en el "app.component" donde se cargaran los componentes segun la ruta
 
 
 
