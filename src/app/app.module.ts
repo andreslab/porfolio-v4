@@ -12,12 +12,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PorfolioComponent } from './page/porfolio/porfolio.component';
 import { InputLoginComponent } from './components/input-login/input-login.component';
+import { ContactFormComponent } from './components/contact-form/contact-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PorfolioComponent,
-    InputLoginComponent
+    InputLoginComponent,
+    ContactFormComponent
   ],
   imports: [
     BrowserModule,
@@ -28,6 +30,7 @@ import { InputLoginComponent } from './components/input-login/input-login.compon
     ReactiveFormsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [InputLoginComponent, ContactFormComponent]
 })
 export class AppModule { }

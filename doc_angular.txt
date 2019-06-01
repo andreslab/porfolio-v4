@@ -20,6 +20,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 - Terminar la configuracion del css de bootstrap, en el archivo "angular.json" agregar en la seccion "style"
 "node_modules/bootstrap/dist/css/bootstrap.min.css"
 
+- En el formulario reactivo html identificamos el campos con el "formControlName"
+
+- Cuando se crea un componente con modal hay que declararlo en el app.module.ts principal con el "entryComponents"
+
+
+
+
+
 
 
 
